@@ -53,12 +53,12 @@
                 <!-- Case pour afficher/masquer les monstres Light/Dark -->
                 <label class="toggle-lightdark">
                     <input type="checkbox" v-model="showLightDark" />
-                    Afficher monstres Light/Dark
+                    Afficher les monstres Lumière et Ténèbres
                 </label>
                 <!-- Case pour surligner le meilleur monstre par élément -->
                 <label class="toggle-highlight">
                     <input type="checkbox" v-model="highlightBest" />
-                    Surligner le meilleur par élément
+                    Mettre en valeur le meilleur monstre par élément
                 </label>
             </div>
         </nav>
