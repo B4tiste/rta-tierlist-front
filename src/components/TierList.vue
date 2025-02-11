@@ -1,7 +1,7 @@
 <template>
     <div>
-        <!-- Le titre change en fonction de l'ID de la TL -->
-        <h1>{{ pageTitle }}</h1>
+        <!-- Titre statique -->
+        <h1>Données du 28 Octobre 2024 au 02 Février 2025</h1>
         <!-- Pour chaque tier non vide, on affiche un bloc "tier" -->
         <div v-for="tier in filteredTierList" :key="tier.rank" class="tier">
             <div class="tier-header">
@@ -140,14 +140,6 @@ export default {
             return mapping[rank] || rank;
         };
 
-        const titleMapping = {
-            "67ab34e773e157be7b23b0dc": "Tier List des Monstres G3",
-            "67ab3d6273e157be7b23b0e1": "Tier List des Monstres G1",
-            "67ab3e0d73e157be7b23b0e6": "Tier List des Monstres Conq",
-        };
-
-        const pageTitle = computed(() => titleMapping[props.id] || "Tier List");
-
         const colorMapping = {
             sssMonster: "red",
             ssMonster: "orange",
@@ -161,7 +153,6 @@ export default {
         return {
             filteredTierList,
             formatRank,
-            pageTitle,
             colorMapping,
             bestMonsters,
         };
