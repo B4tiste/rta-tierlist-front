@@ -1,6 +1,18 @@
 <template>
     <div>
         <h1>Données du 28 Octobre 2024 au 02 Février 2025</h1>
+
+        <!-- Zone de recherche -->
+        <div class="search-container">
+            <input
+                type="text"
+                v-model="searchQuery"
+                placeholder="Rechercher un monstre..."
+                @keyup.enter="scrollToMonster"
+            />
+            <button @click="scrollToMonster">Rechercher</button>
+        </div>
+
         <!-- Utilisation de l'index pour déterminer la couleur du bandeau -->
         <div
             v-for="(tier, index) in filteredTierList"
@@ -52,6 +64,8 @@ export default {
     },
     setup(props) {
         const tierList = ref([]);
+        const searchQuery = ref(""); // Variable pour la recherche
+
         // Ordre de vérification des rangs
         const ranks = [
             "sssMonster",
@@ -157,11 +171,45 @@ export default {
             return headerColors[index % headerColors.length];
         };
 
+        // Fonction qui recherche le monstre et fait défiler jusqu'à son élément dans le DOM
+        // Fonction qui recherche le monstre et fait défiler jusqu'à son élément dans le DOM
+        const scrollToMonster = () => {
+            if (!searchQuery.value.trim()) return;
+            const query = searchQuery.value.trim().toLowerCase();
+
+            // Parcours de la tier list filtrée pour trouver le premier monstre dont le nom contient la requête
+            for (const tier of filteredTierList.value) {
+                const found = tier.monsters.find((monster) =>
+                    monster.monster.name.toLowerCase().includes(query)
+                );
+                if (found) {
+                    // On récupère l'élément correspondant grâce à son id (défini dans MonsterCard)
+                    const elementId = "monster-" + found.monster._id;
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        element.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center",
+                        });
+                        // Ajoute la classe "found" pour appliquer l'effet d'agrandissement
+                        element.classList.add("found");
+                        // Supprime la classe après 3 secondes pour revenir à l'état normal
+                        setTimeout(() => {
+                            element.classList.remove("found");
+                        }, 3000);
+                    }
+                    break;
+                }
+            }
+        };
+
         return {
             filteredTierList,
             formatRank,
             bestMonsters,
             getHeaderColor,
+            searchQuery,
+            scrollToMonster,
         };
     },
 };
@@ -200,5 +248,34 @@ export default {
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
+}
+
+/* Styles pour la zone de recherche */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.search-container input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-container button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #2196f3;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-container button:hover {
+    background-color: #1976d2;
 }
 </style>

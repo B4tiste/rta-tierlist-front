@@ -1,6 +1,7 @@
 <template>
     <div
         class="monster-card"
+        :id="'monster-' + monster.monster._id"
         :class="{ highlight: highlight }"
         @mouseover="showInfo = true"
         @mouseleave="showInfo = false"
@@ -160,5 +161,11 @@ export default {
 
 .monster-card:hover .stats-overlay {
     opacity: 1;
+}
+
+.monster-card.found {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    background-color: #5a4f1a;
 }
 </style>
