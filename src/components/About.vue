@@ -2,11 +2,28 @@
     <div class="about">
         <h1>À propos de ce site</h1>
         <p>
-            Ce site est dédié à la consultation de Tier Lists de monstres,
-            classées selon leurs performances et statistiques. Vous pouvez
-            naviguer entre différentes Tier Lists, filtrer par élément et
-            surligner le meilleur monstre de chaque élément.
+            Bienvenue sur notre site dédié à Summoners War ! En quête d'outils
+            utiles pour la Communauté, nous avons développé
+            <strong>une tier list unique</strong> retraçant
+            <strong>la longévité des monstres</strong> dans le contenu
+            <strong>Arène en Temps Réel (RTA)</strong>.
         </p>
+        <p>
+            Grâce aux données issues de
+            <a href="https://m.swranking.com/#/" target="_blank">SWRT</a>, notre
+            outil vous permet d'identifier les monstres qui restent performants
+            au fil du temps dans ce mode compétitif. Que vous soyez un joueur
+            débutant cherchant à bâtir une équipe solide ou un vétéran
+            souhaitant optimiser vos compositions, notre tier list vous offre
+            une vision claire de la durabilité des unités.
+        </p>
+
+        <p>
+            Notre objectif est de fournir une ressource précise et constamment
+            mise à jour pour aider les Invocateurs à faire des choix
+            stratégiques éclairés.
+        </p>
+
         <div class="credits">
             <h2>Crédits</h2>
             <p>
