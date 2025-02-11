@@ -161,9 +161,9 @@ nav {
 
 /* Taille fixe pour les images de la barre de navigation */
 .nav-links img {
-    width: 50px; /* Taille fixe */
-    height: 18px; /* Taille fixe */
-    object-fit: contain; /* Conserve le ratio d'aspect */
+    width: 50px;
+    height: 18px;
+    object-fit: contain;
     display: block;
     margin: auto;
 }
@@ -182,8 +182,36 @@ nav {
     color: #fff;
 }
 
-.toggle-lightdark input,
-.toggle-highlight input {
-    margin-right: 5px;
+/* Stylisation personnalisée des cases à cocher */
+.toggles label input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    background-color: #1e1e1e;
+    margin-right: 8px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.toggles label input[type="checkbox"]:checked {
+    background-color: #2196f3;
+    border-color: #2196f3;
+}
+
+.toggles label input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 0px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
 }
 </style>
