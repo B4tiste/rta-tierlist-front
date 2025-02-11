@@ -10,7 +10,10 @@
                     }"
                     @click="goToTierList('67ab34e773e157be7b23b0dc')"
                 >
-                    G3 Tier List
+                    <img
+                        src="https://www.swranking.com/image/static/level/g3.png"
+                        alt="G3 Tier List"
+                    />
                 </li>
                 <li
                     :class="{
@@ -20,7 +23,10 @@
                     }"
                     @click="goToTierList('67ab3d6273e157be7b23b0e1')"
                 >
-                    G1 Tier List
+                    <img
+                        src="https://www.swranking.com/image/static/level/g1.png"
+                        alt="G1 Tier List"
+                    />
                 </li>
                 <li
                     :class="{
@@ -30,7 +36,10 @@
                     }"
                     @click="goToTierList('67ab3e0d73e157be7b23b0e6')"
                 >
-                    Conq Tier List
+                    <img
+                        src="https://www.swranking.com/image/static/level/c3.png"
+                        alt="Conq Tier List"
+                    />
                 </li>
                 <!-- Lien pour accéder à la page d'explication -->
                 <li
@@ -148,6 +157,15 @@ nav {
     text-decoration: underline;
     background: #333;
     border-radius: 5px;
+}
+
+/* Taille fixe pour les images de la barre de navigation */
+.nav-links img {
+    width: 50px; /* Taille fixe */
+    height: 18px; /* Taille fixe */
+    object-fit: contain; /* Conserve le ratio d'aspect */
+    display: block;
+    margin: auto;
 }
 
 .toggles {
