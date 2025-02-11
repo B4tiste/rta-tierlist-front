@@ -1,17 +1,9 @@
+<!-- TierList.vue -->
 <template>
     <div>
         <h1>Données du 28 Octobre 2024 au 02 Février 2025</h1>
 
-        <!-- Zone de recherche -->
-        <div class="search-container">
-            <input
-                type="text"
-                v-model="searchQuery"
-                placeholder="Rechercher un monstre..."
-                @keyup.enter="scrollToMonster"
-            />
-            <button @click="scrollToMonster">Rechercher</button>
-        </div>
+        <!-- La barre de recherche a été retirée pour être déplacée dans la nav -->
 
         <!-- Utilisation de l'index pour déterminer la couleur du bandeau -->
         <div
@@ -64,7 +56,6 @@ export default {
     },
     setup(props) {
         const tierList = ref([]);
-        const searchQuery = ref(""); // Variable pour la recherche
 
         // Ordre de vérification des rangs
         const ranks = [
@@ -143,7 +134,7 @@ export default {
         });
 
         const formatRank = (rank) => {
-            // On affiche uniquement le grade, sans le mot "Tier"
+            // Affiche uniquement le grade, sans le mot "Tier"
             const mapping = {
                 sssMonster: "SSS",
                 ssMonster: "SS",
@@ -156,7 +147,7 @@ export default {
             return mapping[rank] || rank;
         };
 
-        // Tableau des couleurs avec un effet "fade" (opacité 0.2)
+        // Tableau des couleurs avec effet "fade" (opacité 0.2)
         const headerColors = [
             "rgba(255, 0, 0, 0.2)", // Rouge
             "rgba(255, 165, 0, 0.2)", // Orange
@@ -166,24 +157,21 @@ export default {
             "rgba(238, 130, 238, 0.2)", // Violet
         ];
 
-        // Fonction qui attribue la couleur en fonction de l'index (la première catégorie affichée sera rouge)
         const getHeaderColor = (index) => {
             return headerColors[index % headerColors.length];
         };
 
-        // Fonction qui recherche le monstre et fait défiler jusqu'à son élément dans le DOM
-        // Fonction qui recherche le monstre et fait défiler jusqu'à son élément dans le DOM
-        const scrollToMonster = () => {
-            if (!searchQuery.value.trim()) return;
-            const query = searchQuery.value.trim().toLowerCase();
+        // Méthode modifiée pour recevoir une chaîne de recherche externe
+        const scrollToMonster = (query) => {
+            if (!query || !query.trim()) return;
+            const lowerQuery = query.trim().toLowerCase();
 
-            // Parcours de la tier list filtrée pour trouver le premier monstre dont le nom contient la requête
+            // Parcourt la tier list filtrée pour trouver le premier monstre correspondant
             for (const tier of filteredTierList.value) {
                 const found = tier.monsters.find((monster) =>
-                    monster.monster.name.toLowerCase().includes(query)
+                    monster.monster.name.toLowerCase().includes(lowerQuery)
                 );
                 if (found) {
-                    // On récupère l'élément correspondant grâce à son id (défini dans MonsterCard)
                     const elementId = "monster-" + found.monster._id;
                     const element = document.getElementById(elementId);
                     if (element) {
@@ -191,9 +179,8 @@ export default {
                             behavior: "smooth",
                             block: "center",
                         });
-                        // Ajoute la classe "found" pour appliquer l'effet d'agrandissement
+                        // Ajoute la classe "found" pour l'effet d'agrandissement
                         element.classList.add("found");
-                        // Supprime la classe après 3 secondes pour revenir à l'état normal
                         setTimeout(() => {
                             element.classList.remove("found");
                         }, 3000);
@@ -208,7 +195,6 @@ export default {
             formatRank,
             bestMonsters,
             getHeaderColor,
-            searchQuery,
             scrollToMonster,
         };
     },
@@ -234,7 +220,6 @@ export default {
     align-items: center;
     justify-content: center;
     color: #fff;
-    /* Un léger text-shadow pour améliorer la lisibilité sur fond coloré */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
@@ -250,32 +235,5 @@ export default {
     justify-content: center;
 }
 
-/* Styles pour la zone de recherche */
-.search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    gap: 10px;
-}
-
-.search-container input {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.search-container button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #2196f3;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.search-container button:hover {
-    background-color: #1976d2;
-}
+/* Optionnel : si vous avez encore des styles pour la barre de recherche, vous pouvez les retirer ici */
 </style>

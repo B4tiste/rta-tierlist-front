@@ -49,23 +49,37 @@
                     À propos
                 </li>
             </ul>
-            <div class="toggles" v-if="currentPage === 'tierlist'">
-                <!-- Case pour afficher/masquer les monstres Light/Dark -->
-                <label class="toggle-lightdark">
-                    <input type="checkbox" v-model="showLightDark" />
-                    Afficher les monstres Lumière et Ténèbres
-                </label>
-                <!-- Case pour surligner le meilleur monstre par élément -->
-                <label class="toggle-highlight">
-                    <input type="checkbox" v-model="highlightBest" />
-                    Mettre en valeur le meilleur monstre par élément
-                </label>
+
+            <!-- Zone de droite de la nav (affichée uniquement sur la page Tier List) -->
+            <div class="nav-right" v-if="currentPage === 'tierlist'">
+                <!-- Barre de recherche à gauche -->
+                <div class="search-bar">
+                    <input
+                        type="text"
+                        v-model="searchQuery"
+                        placeholder="Rechercher un monstre..."
+                        @keyup.enter="handleSearch"
+                    />
+                    <button @click="handleSearch">Rechercher</button>
+                </div>
+                <!-- Les cases à cocher (toggles) -->
+                <div class="toggles">
+                    <label class="toggle-lightdark">
+                        <input type="checkbox" v-model="showLightDark" />
+                        Afficher les monstres Lumière et Ténèbres
+                    </label>
+                    <label class="toggle-highlight">
+                        <input type="checkbox" v-model="highlightBest" />
+                        Mettre en valeur le meilleur monstre par élément
+                    </label>
+                </div>
             </div>
         </nav>
 
         <!-- Affichage conditionnel selon la page sélectionnée -->
         <div v-if="currentPage === 'tierlist'">
             <TierList
+                ref="tierListRef"
                 :id="selectedId"
                 :showLightDark="showLightDark"
                 :highlightBest="highlightBest"
@@ -74,11 +88,20 @@
         <div v-else-if="currentPage === 'about'">
             <About />
         </div>
+
+        <!-- Bouton de retour en haut affiché uniquement si besoin -->
+        <button
+            v-if="showScrollButton"
+            class="scroll-to-top"
+            @click="scrollToTop"
+        >
+            Retour en haut
+        </button>
     </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import TierList from "./components/TierList.vue";
 import About from "./components/About.vue";
 
@@ -86,24 +109,62 @@ export default {
     name: "App",
     components: { TierList, About },
     setup() {
-        // Par défaut, on affiche la Tier List et le premier ID sélectionné
         const currentPage = ref("tierlist");
         const selectedId = ref("67ab34e773e157be7b23b0dc");
         const showLightDark = ref(true);
         const highlightBest = ref(false);
+        const searchQuery = ref("");
 
-        // Fonction pour revenir à la page Tier List en sélectionnant un ID
+        // Référence sur le composant TierList
+        const tierListRef = ref(null);
+
         const goToTierList = (id) => {
             selectedId.value = id;
             currentPage.value = "tierlist";
         };
+
+        // Méthode appelée depuis la barre de recherche
+        const handleSearch = () => {
+            if (tierListRef.value && searchQuery.value.trim()) {
+                tierListRef.value.scrollToMonster(searchQuery.value);
+            }
+        };
+
+        // Méthode pour défiler vers le haut de la page
+        const scrollToTop = () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        };
+
+        // Variable réactive pour afficher/cacher le bouton "Retour en haut"
+        const showScrollButton = ref(false);
+
+        // Fonction qui vérifie la position du scroll
+        const checkScroll = () => {
+            showScrollButton.value = window.scrollY > 100;
+        };
+
+        // Ajout de l'écouteur lors du montage et suppression lors du démontage
+        onMounted(() => {
+            window.addEventListener("scroll", checkScroll);
+        });
+        onUnmounted(() => {
+            window.removeEventListener("scroll", checkScroll);
+        });
 
         return {
             currentPage,
             selectedId,
             showLightDark,
             highlightBest,
+            searchQuery,
             goToTierList,
+            tierListRef,
+            handleSearch,
+            scrollToTop,
+            showScrollButton,
         };
     },
 };
@@ -168,6 +229,35 @@ nav {
     margin: auto;
 }
 
+/* Conteneur pour la zone de droite (recherche + toggles) */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Styles pour la barre de recherche */
+.search-bar input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-bar button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #2196f3;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #1976d2;
+}
+
+/* Styles pour les toggles (inchangés) */
 .toggles {
     display: flex;
     align-items: center;
@@ -182,7 +272,6 @@ nav {
     color: #fff;
 }
 
-/* Stylisation personnalisée des cases à cocher */
 .toggles label input[type="checkbox"] {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -213,5 +302,26 @@ nav {
     border: solid #fff;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
+}
+
+/* Bouton de retour en haut placé en haut, centré horizontalement */
+.scroll-to-top {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #2196f3;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+}
+
+.scroll-to-top:hover {
+    background-color: #1976d2;
 }
 </style>
