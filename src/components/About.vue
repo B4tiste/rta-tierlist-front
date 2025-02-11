@@ -12,7 +12,15 @@
             <p>
                 Créé par
                 <strong
-                    ><a href="https://github.com/B4tiste">B4tiste</a></strong
+                    ><a href="https://github.com/B4tiste" target="_blank"
+                        >B4tiste</a
+                    ></strong
+                >
+                &
+                <strong
+                    ><a href="https://github.com/shvvkz" target="_blank"
+                        >shvvkz</a
+                    ></strong
                 >
                 sous l'impulsion de <strong>Addict/Storm/Qhaao</strong>
             </p>
