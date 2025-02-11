@@ -22,7 +22,7 @@
                         >shvvkz</a
                     ></strong
                 >
-                sous l'impulsion de <strong>Addict/Storm/Qhaao</strong>
+                sous l'impulsion de <strong>Qhaao</strong>
             </p>
         </div>
     </div>
