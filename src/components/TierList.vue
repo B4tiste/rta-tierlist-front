@@ -1,16 +1,17 @@
 <template>
     <div>
-        <!-- Titre statique -->
         <h1>Données du 28 Octobre 2024 au 02 Février 2025</h1>
-        <!-- Pour chaque tier non vide, on affiche un bloc "tier" -->
-        <div v-for="tier in filteredTierList" :key="tier.rank" class="tier">
-            <div class="tier-header">
-                <!-- Vignette colorée associée au rang -->
-                <span
-                    class="tier-badge"
-                    :style="{ backgroundColor: colorMapping[tier.rank] }"
-                ></span>
-                {{ formatRank(tier.rank) }}
+        <!-- Utilisation de l'index pour déterminer la couleur du bandeau -->
+        <div
+            v-for="(tier, index) in filteredTierList"
+            :key="tier.rank"
+            class="tier"
+        >
+            <div
+                class="tier-header"
+                :style="{ backgroundColor: getHeaderColor(index) }"
+            >
+                <span class="rank-text">{{ formatRank(tier.rank) }}</span>
             </div>
             <div class="monster-container">
                 <MonsterCard
@@ -51,7 +52,7 @@ export default {
     },
     setup(props) {
         const tierList = ref([]);
-        // Ordre des rangs
+        // Ordre de vérification des rangs
         const ranks = [
             "sssMonster",
             "ssMonster",
@@ -128,33 +129,39 @@ export default {
         });
 
         const formatRank = (rank) => {
+            // On affiche uniquement le grade, sans le mot "Tier"
             const mapping = {
-                sssMonster: "SSS Tier",
-                ssMonster: "SS Tier",
-                smonster: "S Tier",
-                amonster: "A Tier",
-                bmonster: "B Tier",
-                cmonster: "C Tier",
-                dmonster: "D Tier",
+                sssMonster: "SSS",
+                ssMonster: "SS",
+                smonster: "S",
+                amonster: "A",
+                bmonster: "B",
+                cmonster: "C",
+                dmonster: "D",
             };
             return mapping[rank] || rank;
         };
 
-        const colorMapping = {
-            sssMonster: "red",
-            ssMonster: "orange",
-            smonster: "yellow",
-            amonster: "green",
-            bmonster: "blue",
-            cmonster: "indigo",
-            dmonster: "violet",
+        // Tableau des couleurs avec un effet "fade" (opacité 0.2)
+        const headerColors = [
+            "rgba(255, 0, 0, 0.2)", // Rouge
+            "rgba(255, 165, 0, 0.2)", // Orange
+            "rgba(255, 255, 0, 0.2)", // Jaune
+            "rgba(0, 128, 0, 0.2)", // Vert
+            "rgba(0, 0, 255, 0.2)", // Bleu
+            "rgba(238, 130, 238, 0.2)", // Violet
+        ];
+
+        // Fonction qui attribue la couleur en fonction de l'index (la première catégorie affichée sera rouge)
+        const getHeaderColor = (index) => {
+            return headerColors[index % headerColors.length];
         };
 
         return {
             filteredTierList,
             formatRank,
-            colorMapping,
             bestMonsters,
+            getHeaderColor,
         };
     },
 };
@@ -172,23 +179,20 @@ export default {
 }
 
 .tier-header {
-    font-size: 1.5em;
     margin-bottom: 10px;
-    border-bottom: 1px solid #555;
-    padding-bottom: 5px;
+    padding: 10px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     color: #fff;
+    /* Un léger text-shadow pour améliorer la lisibilité sur fond coloré */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.tier-badge {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+.rank-text {
+    font-size: 3em;
+    font-weight: bold;
 }
 
 .monster-container {
