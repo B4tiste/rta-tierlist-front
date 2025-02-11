@@ -10,10 +10,13 @@
         </p>
         <p>
             Grâce aux données issues de
-            <a href="https://m.swranking.com/#/" target="_blank">SWRT</a>, notre
-            outil vous permet d'identifier les monstres qui restent performants
-            au fil du temps dans ce mode compétitif. Que vous soyez un joueur
-            débutant cherchant à bâtir une équipe solide ou un vétéran
+            <strong
+                ><a href="https://m.swranking.com/#/" target="_blank"
+                    >SWRT</a
+                ></strong
+            >, notre outil vous permet d'identifier les monstres qui restent
+            performants au fil du temps dans ce mode compétitif. Que vous soyez
+            un joueur débutant cherchant à bâtir une équipe solide ou un vétéran
             souhaitant optimiser vos compositions, notre tier list vous offre
             une vision claire de la durabilité des unités.
         </p>
@@ -86,12 +89,12 @@ export default {
     color: #fff;
 }
 
-.credits a {
+a {
     color: #66afe9;
     text-decoration: none;
 }
 
-.credits a:hover {
+a:hover {
     text-decoration: underline;
 }
 </style>
