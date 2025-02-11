@@ -1,4 +1,3 @@
-<!-- src/components/MonsterCard.vue -->
 <template>
     <div
         class="monster-card"
@@ -23,7 +22,7 @@
         <div class="monster-score">Score: {{ monster.score.toFixed(2) }}</div>
         <!-- Affichage des statistiques au hover -->
         <div v-if="showInfo" class="stats-overlay">
-            <h5>Statistiques actuelles</h5>
+            <h5>Stats</h5>
             <p>Winrate: {{ (monster.winrate * 100).toFixed(2) }}%</p>
             <p>Pickrate: {{ (monster.pickrate * 100).toFixed(2) }}%</p>
             <p>Banrate: {{ (monster.banrate * 100).toFixed(2) }}%</p>
@@ -41,7 +40,6 @@ export default {
     },
     setup(props) {
         const showInfo = ref(false);
-        // On convertit l'élément en minuscules pour construire l'URL de l'icône
         const elementIconUrl = computed(() => {
             const element = (
                 props.monster.monster.element || "dark"
@@ -55,30 +53,43 @@ export default {
 
 <style>
 .monster-card {
-    background: #eaeaea;
-    border-radius: 5px;
-    padding: 8px;
+    background: #2b2b2b;
+    border-radius: 10px;
+    padding: 10px;
     width: 120px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    transition: transform 0.2s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .monster-card:hover {
     transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 }
 
-/* Ajout du style pour le surlignage */
+/* Surlignage d'un monstre (par exemple, le meilleur par élément) */
 .monster-card.highlight {
-    background-color: #ffd700; /* fond doré */
+    background-color: #5a4f1a;
+}
+
+/* Centrage de l'image dans la card */
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 100px;
 }
 
 .monster-img {
     display: block;
     max-width: 100%;
-    height: auto;
-    border-radius: 4px;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
 .monster-info {
@@ -87,6 +98,7 @@ export default {
     justify-content: center;
     margin-top: 5px;
     gap: 5px;
+    color: #f0f0f0;
 }
 
 .element-icon {
@@ -114,23 +126,39 @@ export default {
 .monster-score {
     margin-top: 3px;
     font-size: 0.9em;
-    color: #555;
+    color: #aaa;
 }
 
+/* Modification de l'overlay pour déplacer le texte vers le haut */
 .stats-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     color: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; /* Aligne les éléments en haut */
     align-items: center;
-    border-radius: 5px;
-    font-size: 0.8em;
-    padding: 5px;
+    border-radius: 10px;
+    padding: 0px 5px 5px; /* Augmente le padding en haut */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Agrandissement du titre et réduction des marges entre éléments */
+.stats-overlay h5 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.stats-overlay p {
+    margin: 3px 0;
+}
+
+.monster-card:hover .stats-overlay {
+    opacity: 1;
 }
 </style>

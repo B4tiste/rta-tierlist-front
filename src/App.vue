@@ -1,4 +1,3 @@
-<!-- src/App.vue -->
 <template>
     <div id="app">
         <nav>
@@ -106,13 +105,14 @@ export default {
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f9f9f9;
+    background: #121212;
     padding: 20px;
+    color: #ddd;
 }
 
 /* Barre de navigation */
 nav {
-    background: #333;
+    background: #1e1e1e;
     color: #fff;
     padding: 10px 20px;
     margin-bottom: 20px;
@@ -120,6 +120,8 @@ nav {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .nav-links {
@@ -133,11 +135,19 @@ nav {
     margin-right: 20px;
     cursor: pointer;
     padding: 5px 10px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.nav-links li:hover {
+    background: #333;
+    border-radius: 5px;
 }
 
 .nav-links li.active {
     font-weight: bold;
     text-decoration: underline;
+    background: #333;
+    border-radius: 5px;
 }
 
 .toggles {

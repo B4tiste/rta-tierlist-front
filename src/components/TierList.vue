@@ -1,4 +1,3 @@
-<!-- src/components/TierList.vue -->
 <template>
     <div>
         <!-- Le titre change en fonction de l'ID de la TL -->
@@ -78,7 +77,6 @@ export default {
             }
         };
 
-        // Chargement initial et rechargement lors du changement d'ID
         onMounted(() => {
             fetchTierList(props.id);
         });
@@ -90,9 +88,6 @@ export default {
             }
         );
 
-        // Calcul de la tier list triée et filtrée :
-        // On crée un tableau d'objets { rank, monsters } et on ne garde que les tiers non vides.
-        // Si showLightDark est false, on exclut les monstres avec element "light" ou "dark".
         const filteredTierList = computed(() => {
             return ranks
                 .map((rank) => {
@@ -111,9 +106,7 @@ export default {
                 .filter((tier) => tier.monsters.length > 0);
         });
 
-        // Calcul du meilleur monstre par élément parmi ceux affichés
         const bestMonsters = computed(() => {
-            // Aplatir toutes les cartes affichées
             const allMonsters = filteredTierList.value.flatMap(
                 (tier) => tier.monsters
             );
@@ -127,7 +120,6 @@ export default {
                     bestMapping[element] = monster;
                 }
             });
-            // Retourne un mapping : élément -> id du meilleur monstre
             const mapping = {};
             for (const element in bestMapping) {
                 mapping[element] = bestMapping[element].monster._id;
@@ -135,7 +127,6 @@ export default {
             return mapping;
         });
 
-        // Formatage du nom des rangs
         const formatRank = (rank) => {
             const mapping = {
                 sssMonster: "SSS Tier",
@@ -149,7 +140,6 @@ export default {
             return mapping[rank] || rank;
         };
 
-        // Mapping des ID vers les titres de page
         const titleMapping = {
             "67ab34e773e157be7b23b0dc": "Tier List des Monstres G3",
             "67ab3d6273e157be7b23b0e1": "Tier List des Monstres G1",
@@ -158,7 +148,6 @@ export default {
 
         const pageTitle = computed(() => titleMapping[props.id] || "Tier List");
 
-        // Mapping des couleurs (du rouge au violet) en fonction du rang
         const colorMapping = {
             sssMonster: "red",
             ssMonster: "orange",
@@ -183,28 +172,34 @@ export default {
 <style>
 .tier {
     margin-bottom: 30px;
-    background: #fff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background: #3a3a3a;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    color: #f0f0f0;
+    transition: background 0.3s ease;
 }
+
 .tier-header {
-    font-size: 2em;
+    font-size: 1.5em;
     margin-bottom: 10px;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 1px solid #555;
     padding-bottom: 5px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
+    color: #fff;
 }
+
 .tier-badge {
     display: inline-block;
     width: 20px;
     height: 20px;
     border-radius: 50%;
 }
+
 .monster-container {
     display: flex;
     flex-wrap: wrap;

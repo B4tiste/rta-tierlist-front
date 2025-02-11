@@ -1,4 +1,3 @@
-<!-- src/components/About.vue -->
 <template>
     <div class="about">
         <h1>À propos de ce site</h1>
@@ -8,7 +7,6 @@
             naviguer entre différentes Tier Lists, filtrer par élément et
             surligner le meilleur monstre de chaque élément.
         </p>
-        <!-- <p>Les données sont récupérées en temps réel depuis une API dédiée.</p> -->
         <div class="credits">
             <h2>Crédits</h2>
             <p>
@@ -31,26 +29,44 @@ export default {
 <style scoped>
 .about {
     padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background: #2b2b2b;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     max-width: 800px;
     margin: 0 auto;
+    color: #ddd;
+    transition: background 0.3s ease;
 }
+
 .about h1 {
     text-align: center;
     margin-bottom: 20px;
+    color: #fff;
 }
+
 .about p {
     line-height: 1.6;
     margin-bottom: 15px;
     text-align: justify;
+    color: #ccc;
 }
+
 .credits {
     margin-top: 30px;
     text-align: center;
 }
+
 .credits h2 {
     margin-bottom: 10px;
+    color: #fff;
+}
+
+.credits a {
+    color: #66afe9;
+    text-decoration: none;
+}
+
+.credits a:hover {
+    text-decoration: underline;
 }
 </style>
