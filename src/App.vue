@@ -60,7 +60,9 @@
                         placeholder="Rechercher un monstre..."
                         @keyup.enter="handleSearch"
                     />
-                    <button @click="handleSearch">Rechercher</button>
+                    <button @click="handleSearch">
+                        <img src="/assets/magnifying-glass.png" alt="Loupe"/>
+                    </button>
                 </div>
                 <!-- Les cases à cocher (toggles) -->
                 <div class="toggles">
@@ -243,18 +245,30 @@ nav {
     border-radius: 4px;
 }
 
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
 .search-bar button {
-    padding: 5px 10px;
+    padding: 5px;
     border: none;
-    border-radius: 4px;
-    background-color: #2196f3;
-    color: #fff;
+    border-radius: 25%;
+    background-color: transparent;
     cursor: pointer;
     transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .search-bar button:hover {
-    background-color: #1976d2;
+    background-color: #333;
+}
+
+.search-bar img {
+    width: 30px;
+    height: 30px;
 }
 
 /* Styles pour les toggles (inchangés) */
