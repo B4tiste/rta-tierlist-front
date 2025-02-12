@@ -2,6 +2,14 @@
     <div id="app">
         <nav>
             <ul class="nav-links">
+                <!-- Lien Accueil (anciennement À propos) placé en premier -->
+                <li
+                    :class="{ active: currentPage === 'accueil' }"
+                    @click="currentPage = 'accueil'"
+                >
+                    Accueil
+                </li>
+
                 <li
                     :class="{
                         active:
@@ -40,13 +48,6 @@
                         src="https://www.swranking.com/image/static/level/c3.png"
                         alt="Conq Tier List"
                     />
-                </li>
-                <!-- Lien pour accéder à la page d'explication -->
-                <li
-                    :class="{ active: currentPage === 'about' }"
-                    @click="currentPage = 'about'"
-                >
-                    À propos
                 </li>
             </ul>
 
@@ -87,7 +88,7 @@
                 :highlightBest="highlightBest"
             />
         </div>
-        <div v-else-if="currentPage === 'about'">
+        <div v-else-if="currentPage === 'accueil'">
             <About />
         </div>
 
@@ -111,7 +112,8 @@ export default {
     name: "App",
     components: { TierList, About },
     setup() {
-        const currentPage = ref("tierlist");
+        // La page d'accueil devient la page par défaut
+        const currentPage = ref("accueil");
         const selectedId = ref("67ab34e773e157be7b23b0dc");
         const showLightDark = ref(true);
         const highlightBest = ref(false);
@@ -271,7 +273,7 @@ nav {
     height: 30px;
 }
 
-/* Styles pour les toggles (inchangés) */
+/* Styles pour les toggles */
 .toggles {
     display: flex;
     align-items: center;

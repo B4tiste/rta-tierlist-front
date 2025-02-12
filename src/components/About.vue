@@ -2,7 +2,7 @@
     <div class="about">
         <h1>À propos de ce site</h1>
         <p>
-            Bienvenue sur notre site dédié à Summoners War ! En quête d'outils
+            Bienvenue sur notre site dédié à la méta RTA de Summoners War ! En quête d'outils
             utiles pour la Communauté, nous avons développé
             <strong>une tier list unique</strong> retraçant
             <strong>la longévité des monstres</strong> dans le contenu
@@ -25,6 +25,11 @@
             Notre objectif est de fournir une ressource précise et constamment
             mise à jour pour aider les Invocateurs à faire des choix
             stratégiques éclairés.
+        </p>
+
+        <h1>Comment ça marche ?</h1>
+        <p>
+            Vous pouvez accéder aux différentes informations en fonction du rang (G3/G1/Autre) via les boutons situés en haut de la page
         </p>
 
         <div class="credits">
